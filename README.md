@@ -46,13 +46,13 @@ Afin de réaliser un plan de test et pour but de simplicité, on va réaliser un
 
 
 
-### Votre 3ᵉ mission serait un bonus (optional). Mise en place d’un pipeline CI/CD pour le but d’automatisation des tests.
+### La 3ᵉ mission serait un bonus (optional). Mise en place d’un pipeline CI/CD pour le but d’automatisation des tests.
 
 #### Contraintes :
 * Utiliser Maven
 * Utiliser les spring boot starters depuis https://start.spring.io/:
 * Spring Web : RESTful
 * Spring Data JPA
-* MySQL Driver | PostgeSQL Driver
+* PostgeSQL Driver
 * Lombok: générer les POJOS.
 * Utiliser Junit5 et Mockito.
