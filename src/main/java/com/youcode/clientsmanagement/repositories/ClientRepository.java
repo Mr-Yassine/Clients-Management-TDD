@@ -17,5 +17,5 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 //    @Query(value= "select *  FROM clients WHERE sex LIKE :sex OR email LIKE :email", nativeQuery = true)
 //    Optional<Client> findByChoice(@Param("email") String email,@Param("sex") SexEnum sex);
 
-    List<Client> findBySexOrEmail(Optional<SexEnum> sex,Optional<String> email);
+    List<Client> findByIdOrSexOrEmail(Optional<Long> id, Optional<SexEnum> sex,Optional<String> email);
 }

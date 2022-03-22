@@ -29,20 +29,14 @@ public class ClientController{
 
 
     //Get methods
-    @GetMapping("/id/{id}")
-    public Client findClientById(@PathVariable long id){
-        return clientService.getClientById(id);
-    }
-
-    @GetMapping(value={"/email/{email}","/sex/{sex}","/{sex}/{email}"})
-    public List<Client> findClientByChoice(@PathVariable(value = "email",required = false)  Optional<String>  email, @PathVariable(value = "sex",required = false) Optional<SexEnum> sex){
-        return clientService.getClientBychoice(email, sex);
+    @GetMapping(value={"/id/{id}", "/email/{email}","/sex/{sex}","/{sex}/{email}"})
+    public List<Client> findClientByChoice(@PathVariable(value = "id",required = false)  Optional<Long>  id, @PathVariable(value = "email",required = false)  Optional<String>  email, @PathVariable(value = "sex",required = false) Optional<SexEnum> sex){
+        return clientService.getClientBychoice(id, email, sex);
     }
     @GetMapping("/all")
     public List<Client> getAllClients() throws Exception{
         return clientService.getClients();
     }
-
 
 
 

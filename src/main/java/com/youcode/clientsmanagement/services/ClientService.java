@@ -5,13 +5,14 @@ import com.youcode.clientsmanagement.entities.Client;
 import com.youcode.clientsmanagement.enums.SexEnum;
 import com.youcode.clientsmanagement.exceptions.ApiRequestException;
 import com.youcode.clientsmanagement.repositories.ClientRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service @AllArgsConstructor
 public class ClientService {
 
     @Autowired
@@ -19,18 +20,8 @@ public class ClientService {
 
 
     //Get methods
-    public Client getClientById(Long id){
-
-        Client client= clientRepository.findById(id).orElse(null);
-        if (client!=null){
-            return  client;
-        } else {
-            throw new ApiRequestException("Client with id: "+id+" does not exist");
-        }
-
-    }
-    public List<Client> getClientBychoice(Optional<String> email, Optional<SexEnum> sex) {
-        List<Client> client = clientRepository.findBySexOrEmail(sex,email);
+    public List<Client> getClientBychoice(Optional<Long> id, Optional<String> email, Optional<SexEnum> sex) {
+        List<Client> client = clientRepository.findByIdOrSexOrEmail(id,sex,email);
         if (client!=null){
             return  client;
         } else {
