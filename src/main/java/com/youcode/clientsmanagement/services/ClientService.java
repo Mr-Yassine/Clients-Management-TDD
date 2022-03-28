@@ -6,13 +6,26 @@ import com.youcode.clientsmanagement.enums.SexEnum;
 import com.youcode.clientsmanagement.exceptions.ApiRequestException;
 import com.youcode.clientsmanagement.repositories.ClientRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service @AllArgsConstructor
+
+
+
+import javax.annotation.PostConstruct;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+@Service
+@AllArgsConstructor
 public class ClientService {
 
     @Autowired
@@ -61,4 +74,18 @@ public class ClientService {
         clientRepository.deleteById(id);
         return "Client removed successfully";
     }
+
+
+
+
+
+
+    //Pagination
+    public Page<Client> findClientsWithPagination(int offset,int pageSize){
+        Page<Client> clients = clientRepository.findAll(PageRequest.of(offset, pageSize));
+        return  clients;
+    }
+
+
+
 }

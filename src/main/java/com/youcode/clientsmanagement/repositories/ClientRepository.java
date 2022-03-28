@@ -16,4 +16,5 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
       Optional<Client> findByChoice(@Param("email") String email,@Param("sex") SexEnum sex);
 */
     List<Client> findByIdOrSexOrEmail(Optional<Long> id, Optional<SexEnum> sex,Optional<String> email);
+
 }

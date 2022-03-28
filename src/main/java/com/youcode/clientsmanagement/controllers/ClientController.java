@@ -1,16 +1,20 @@
 package com.youcode.clientsmanagement.controllers;
 
 
+import com.youcode.clientsmanagement.ApiResponse;
 import com.youcode.clientsmanagement.entities.Client;
 import com.youcode.clientsmanagement.enums.SexEnum;
 import com.youcode.clientsmanagement.exceptions.ApiExceptionHandler;
 import com.youcode.clientsmanagement.exceptions.ApiRequestException;
+import com.youcode.clientsmanagement.repositories.ClientRepository;
 import com.youcode.clientsmanagement.services.ClientService;
 import lombok.extern.log4j.Log4j;
+import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,11 +25,12 @@ public class ClientController{
 
     private final ClientService clientService;
 
-
     @Autowired
     public ClientController(ClientService clientService) {
         this.clientService = clientService;
     }
+
+
 
 
     //Get methods
@@ -58,6 +63,30 @@ public class ClientController{
     @DeleteMapping("/delete/{id}")
     public String deleteClient(@PathVariable long id){
         return clientService.deleteClient(id);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    @GetMapping("")
+    private ApiResponse<List<Client>> getClients() {
+        List<Client> clients = clientService.getClients();
+        return new ApiResponse<>(clients.size(), clients);
+    }
+
+    @GetMapping("/pagination/{offset}/{pageSize}")
+    private ApiResponse<Page<Client>> getClientsWithPagination(@PathVariable int offset, @PathVariable int pageSize) {
+        Page<Client> clientsWithPagination = clientService.findClientsWithPagination(offset, pageSize);
+        return new ApiResponse<>(clientsWithPagination.getSize(), clientsWithPagination);
     }
 
 

@@ -38,16 +38,21 @@ class ClientServiceTest {
         clientService = new ClientService(clientRepository);
     }
 
+    Client client1 = new Client(1L, "c1",22,"c1@gmail.com","+212611223344", SexEnum.Male,true);
+    Client client2 = new Client(1L, "c1",22,"c1@gmail.com","+212611223344", SexEnum.Male,true);
+    List<Client> clients = new ArrayList<>();
+
 
     @Test
     void getClientBychoice() {
+        clients.add(client1);
+        clients.add(client2);
+        Mockito.when(clientService.getClientBychoice(Optional.of(1L),Optional.of(client1.getEmail()),Optional.of(SexEnum.Male))).thenReturn(clients);
+        assertThat(clientService.getClientBychoice(Optional.of(1L),Optional.of(client1.getEmail()),Optional.of(SexEnum.Male))).isNotNull();
     }
 
     @Test
     void getClients() {
-        Client client1 = new Client(1L, "c1",22,"c1@gmail.com","+212611223344", SexEnum.Male,true);
-        Client client2 = new Client(1L, "c1",22,"c1@gmail.com","+212611223344", SexEnum.Male,true);
-        List<Client> clients = new ArrayList<>();
         clients.add(client1);
         clients.add(client2);
         Mockito.when(clientService.getClients()).thenReturn(clients);
@@ -56,7 +61,6 @@ class ClientServiceTest {
 
     @Test
     void saveClient() {
-        Client client1 = new Client(1L, "c1",22,"c1@gmail.com","+212611223344", SexEnum.Male,true);
         Mockito.when(clientService.saveClient(client1))
                 .thenReturn(client1);
         assertThat(clientService.saveClient(client1)).isEqualTo(client1);
@@ -64,7 +68,6 @@ class ClientServiceTest {
 
     @Test
     void updateClient() {
-        Client client1 = new Client(1L, "c1",22,"c1@gmail.com","+212611223344", SexEnum.Male,true);
         Mockito.lenient().when(clientRepository.findById(1L)).thenReturn(Optional.of(client1));
         Mockito.when(clientService.updateClient(client1))
                 .thenReturn(client1);
@@ -73,7 +76,6 @@ class ClientServiceTest {
 
     @Test
     void deleteClient() {
-        Client client1 = new Client(1L, "c1",22,"c1@gmail.com","+212611223344", SexEnum.Male,true);
         assertThat(clientService.deleteClient(client1.getId())).isEqualTo("Client removed successfully");
     }
 }

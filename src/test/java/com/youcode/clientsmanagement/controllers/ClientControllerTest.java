@@ -35,33 +35,34 @@ class ClientControllerTest {
     private ClientService clientService;
 
 
+    Client client1 = new Client(1L, "c1",22,"c1@gmail.com","+212611223344", SexEnum.Male,true);
+    Client client2 = new Client(2L, "c2",22,"c2@gmail.com","+212699887766", SexEnum.Male,true);
+
+
 
     @Test
     void findClientByChoice() throws Exception{
-        Client client1 = new Client(1L, "c1",22,"c1@gmail.com","+212611223344", SexEnum.Male,true);
-        List<Client>clients=new ArrayList<>();
+        List<Client> clients = new ArrayList<>();
         clients.add(client1);
         when(clientService.getClientBychoice(Optional.of(1L),Optional.of(client1.getEmail()),Optional.of(SexEnum.Male))).thenReturn(clients);
-        mockMvc.perform(get("/api/client/id/"+client1.getId()))
+        mockMvc.perform(get("/api/client/email/"+client1.getEmail()))
                 .andExpect(status().isOk());
-
     }
 
     @Test
     void getAllClients() throws Exception{
-        Client client1 = new Client(1L, "c1",22,"c1@gmail.com","+212611223344", SexEnum.Male,true);
-        Client client2 = new Client(2L, "c2",22,"c2@gmail.com","+212699887766", SexEnum.Male,true);
         List<Client> clients = new ArrayList<>();
         clients.add(client1);
         clients.add(client2);
         when(clientService.getClients()).thenReturn(clients);
         mockMvc.perform(get("/api/client/all"))
                 .andExpect(status().isOk());
+
     }
+
 
     @Test
     void saveClient() throws Exception{
-        Client client1 = new Client(1L, "c1",22,"c1@gmail.com","+212611223344", SexEnum.Male,true);
         when(clientService.saveClient(client1))
                 .thenReturn(client1);
 
@@ -73,8 +74,6 @@ class ClientControllerTest {
 
     @Test
     void updateClient() throws Exception{
-        Client client1 = new Client(1L, "c1",22,"c1@gmail.com","+212611223344", SexEnum.Male,true);
-
         when(clientService.saveClient(client1))
                 .thenReturn(client1);
         mockMvc.perform(put("/api/client/update")
@@ -85,7 +84,6 @@ class ClientControllerTest {
 
     @Test
     void deleteClient() throws Exception {
-        Client client1 = new Client(1L, "c1",22,"c1@gmail.com","+212611223344", SexEnum.Male,true);
         given(clientService.deleteClient(client1.getId())).willReturn("deleted");
 
         mockMvc.perform(delete("/api/client/delete/"+client1.getId())
