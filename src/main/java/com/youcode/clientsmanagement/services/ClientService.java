@@ -82,7 +82,8 @@ public class ClientService {
 
     //Pagination
     public Page<Client> findClientsWithPagination(int offset,int pageSize){
-        Page<Client> clients = clientRepository.findAll(PageRequest.of(offset, pageSize));
+        // Pageable pageable = PageRequest.of(offset, pageSize);
+        Page<Client> clients = clientRepository.findAllByIsActiveTrue(PageRequest.of(offset, pageSize));
         return  clients;
     }
 

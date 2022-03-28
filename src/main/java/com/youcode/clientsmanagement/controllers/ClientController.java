@@ -67,16 +67,7 @@ public class ClientController{
 
 
 
-
-
-
-
-
-
-
-
-
-    
+    //pagination
     @GetMapping("")
     private ApiResponse<List<Client>> getClients() {
         List<Client> clients = clientService.getClients();
@@ -88,6 +79,5 @@ public class ClientController{
         Page<Client> clientsWithPagination = clientService.findClientsWithPagination(offset, pageSize);
         return new ApiResponse<>(clientsWithPagination.getSize(), clientsWithPagination);
     }
-
 
 }

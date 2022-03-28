@@ -69,7 +69,7 @@ class ClientControllerTest {
         mockMvc.perform(post("/api/client/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(client1)))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
     }
 
     @Test
